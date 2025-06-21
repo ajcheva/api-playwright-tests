@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:report": "playwright test && playwright show-report"
+    "test:report": "playwright test && playwright show-report",
+    "test:gorest": "npx playwright test tests/auth/gorest-crud.spec.ts",
+    "test:debug": "npx playwright test tests/auth/gorest-crud-debug.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,8 @@
     "@playwright/test": "^1.53.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
   }
 }

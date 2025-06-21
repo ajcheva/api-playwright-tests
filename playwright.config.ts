@@ -1,14 +1,12 @@
+// playwright.config.ts
 import { defineConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
-  testDir: './tests',
   use: {
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    extraHTTPHeaders: {
-      'Content-Type': 'application/json',
-    },
+    baseURL: 'https://gorest.co.in/public/v2',
   },
-  reporter: 'html', 
-  timeout: 10000,    
+  testDir: './tests',
 });
-
