@@ -13,6 +13,7 @@ Las pruebas están construidas con [Playwright Test](https://playwright.dev/test
 - `tests/api.spec.ts`: pruebas básicas con JSONPlaceholder
 - `tests/auth/gorest-crud.spec.ts`: pruebas con autenticación Bearer JWT sobre GoRest
 - `tests/auth/gorest-crud-debug.spec.ts`: variante de debug para inspeccionar errores y contenido de respuestas
+- `schemas/user-schema.ts`: esquema de validación de usuarios con Zod
 - `.env`: archivo con tu token privado de GoRest
 - `playwright.config.ts`: configuración global del entorno de pruebas
 - `package.json`: scripts útiles para ejecutar tests
@@ -42,13 +43,13 @@ npm install
 
 ## 🔐 Configuración del Token GoRest
 
-1. Crear un archivo `.env` en la raíz del proyecto:
+Crear un archivo `.env` en la raíz del proyecto:
 
 ```bash
 touch .env
 ```
 
-2. Agregar tu token Bearer (válido y generado desde GoRest):
+Agregar tu token Bearer (válido y generado desde GoRest):
 
 ```env
 GOREST_TOKEN=tu_token_aqui
@@ -74,55 +75,6 @@ npm run test:debug
 
 ---
 
-## ⚠️ Errores frecuentes
-
-**❌ Error 404 Not Found en GoRest:**
-
-Esto puede deberse a:
-
-- ✅ **RUTA incorrecta:** GoRest exige que la ruta contenga `/public/v2`, incluso si está definida en el `baseURL`.  
-  Solución: cambiar el `baseURL` a `https://gorest.co.in` y luego usar rutas absolutas como `/public/v2/users`.
-
-- ✅ **Token inválido:** si la respuesta del servidor es HTML (y no JSON), revisá que tu token esté cargado correctamente en el `.env`.
-
-- ✅ **No usar Accept: application/json:** puede causar que la respuesta no sea parseable como JSON.
-
----
-
-## ✅ Resultado esperado (con token válido)
-
-```bash
-🔑 TOKEN USADO: <tu_token>
-✓ POST /public/v2/users - Crea un nuevo usuario
-✓ GET /public/v2/users/:id - Verifica datos del usuario creado
-✓ GET /public/v2/users - Lista incluye al usuario creado
-🗑️ Usuario eliminado correctamente
-```
-
----
-
-## 🧪 Ejemplo de prueba en JSONPlaceholder
-
-```ts
-test('GET /posts should return 100 posts', async ({ request }) => {
-  const response = await request.get('/posts');
-  expect(response.status()).toBe(200);
-  const posts = await response.json();
-  expect(posts.length).toBe(100);
-});
-```
-
----
-
-## 🧭 Próximos pasos (opcional)
-
-- [ ] Añadir pruebas de `PUT` y `DELETE` en GoRest
-- [ ] Validación de esquemas con Zod o Joi
-- [ ] Integración continua (CI) con GitHub Actions
-- [ ] Generar reportes con trazabilidad
-
----
-
 ## 📁 Estructura del proyecto
 
 ```
@@ -135,6 +87,8 @@ api-playwright-tests/
 │   └── auth/
 │       ├── gorest-crud.spec.ts
 │       └── gorest-crud-debug.spec.ts
+├── schemas/
+│   └── user-schema.ts
 ├── .env
 ├── package.json
 ├── playwright.config.ts
@@ -145,4 +99,4 @@ api-playwright-tests/
 
 ## 🧾 Licencia
 
-MIT © [ajcheva](https://github.com/ajcheva)
+MIT © ajcheva

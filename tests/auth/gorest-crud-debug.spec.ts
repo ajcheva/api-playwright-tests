@@ -1,4 +1,3 @@
-// tests/auth/gorest-crud-debug.spec.ts
 import { test, expect, request, APIRequestContext } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -18,7 +17,7 @@ test.describe('CRUD debug con Bearer Token - GoRest', () => {
 
   test.beforeAll(async () => {
     apiContext = await request.newContext({
-      baseURL: 'https://gorest.co.in', // ✅ CORREGIDO
+      baseURL: 'https://gorest.co.in',
       extraHTTPHeaders: {
         Authorization: `Bearer ${API_TOKEN}`,
         'Content-Type': 'application/json',
@@ -40,11 +39,14 @@ test.describe('CRUD debug con Bearer Token - GoRest', () => {
     const newUser = {
       name: 'Usuario Test Playwright',
       gender: 'female',
-      email: `playwright_${Date.now()}@example.com`,
+      email: `pwtest+${Math.random().toString(36).slice(2)}@example.com`, // ✅ email único
       status: 'active',
     };
 
-    const response = await apiContext.post('/public/v2/users', { data: newUser }); // ✅ CORREGIDO
+    const response = await apiContext.post('/public/v2/users', {
+      data: newUser,
+    });
+
     const status = response.status();
     const contentType = response.headers()['content-type'];
     const body = await response.text();

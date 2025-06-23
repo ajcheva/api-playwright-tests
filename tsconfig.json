@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["tests"]
+  "include": ["tests"]tests/schemas
 }
